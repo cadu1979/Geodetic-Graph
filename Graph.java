@@ -79,16 +79,12 @@ public class Graph
     */
     public void addEdge(Integer sourceID, Integer destID) 
     {
-        Vertex source;
-        Vertex dest;
-
         if(!vertices.containsKey(sourceID))
             this.addVertex(sourceID);
         if(!vertices.containsKey(destID))
             this.addVertex(destID);
-        
-        source = vertices.get(sourceID);
-        dest = vertices.get(destID);
+        Vertex source = vertices.get(sourceID);
+        Vertex dest = vertices.get(destID);
         source.addNeighbor(dest);
         dest.addNeighbor(source);
     }
