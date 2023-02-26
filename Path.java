@@ -8,7 +8,7 @@ public class Path
     private Integer sourceVertexID;
     private Integer destVertexID;
 
-    public Coord( Integer source, Integer dest )
+    public Path( Integer source, Integer dest )
     {
         this.sourceVertexID = source;
         this.destVertexID = dest;

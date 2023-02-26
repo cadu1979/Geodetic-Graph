@@ -17,12 +17,16 @@ public class Vertex
     public Vertex ( Integer id ) 
     {
         this.id = id;
-        //neighborhood = new HashMap< Integer, Vertex >();
     }
 
     public Integer getID()
     {
         return this.id;
+    }
+
+    public HashMap<Integer, Vertex> getNeighbors()
+    {
+        return this.neighborhood;
     }
 
     public void addNeighbor( Vertex neighbor ) 
@@ -36,15 +40,4 @@ public class Vertex
             return false;
         return true;
     }
-
-    /*
-    // prints IDs of this vertex and neighbors
-    public void print() 
-    {
-        System.out.print("\nVertex's ID: " + id + ", Neighborhood: " );
-        for( Vertex v : neighborhood.values() )
-            System.out.print(" " + v.getID() );
-        System.out.print("\n" );
-    }
-    */
 };

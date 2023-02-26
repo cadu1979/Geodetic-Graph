@@ -1,5 +1,6 @@
 /*
 TODO change g.inicializaMatrizDistanciaMinimaUnica(); to some better name
+TODO modify graph so that first line contains only the number of vertices
 */
 
 import java.nio.file.Files;
@@ -16,32 +17,22 @@ public class Geodetic
         Graph g = new Graph();
         List<String> graphDescription;
         Path graphDescriptionPath = Paths.get("grafo01.txt");
+        int distanceMatrix[][] = new int[17][17];
 
         try
         {
             graphDescription = Files.readAllLines(graphDescriptionPath);
             g.buildGraph(graphDescription);
-            g.print();
-            // if(g.isGeodetic())
-            //     System.out.println("The graph is geodetic.");
-            // else
-            //      System.out.println("The graph is not geodetic.");
+            FloydWarshall.findAllShortestPaths(g, distanceMatrix);
+            if(g.isGeodetic())
+                System.out.println("The graph is geodetic.");
+            else
+                 System.out.println("The graph is not geodetic.");
         }
         catch(Exception e) 
         {
 			e.printStackTrace();
         }
-
-        // g.open_text(file);
-
-        // g.inicializaMatrizDistanciaMinimaUnica(); // DOESN'T FIT
-
-        // g.Floyd_Warshall();
-
-        // if (g.isGeodetic())
-        //     System.out.println("The graph is geodetic.");
-        // else
-        //     System.out.println("The graph is not geodetic.");
     }
 }
 

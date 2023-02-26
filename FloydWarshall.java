@@ -1,10 +1,94 @@
+import java.util.HashMap;
+
+/* FloydWarshall.findAllShortestPaths(g, floydWarshallMatrix);
+ * FloydWarshall.isShortestPathUnique(this, source, dest)
+ */
+
+// TODO description of the alg
+
 public class FloydWarshall
 {
+    private int[][] adjacencyMatrix;
+    private int[][] distanceMatrix;
+
+    // Integer.MAX_VALUE/2 is used as an alternative to infinity as there's a 
+    // possibility of two of these values being summed, and any larger value
+    // would overflow
+    public void setup(Graph g)
+    {
+        int numVertices = g.getVertices().size();
+        adjacencyMatrix = Util.buildAdjacencyMatrix(g);
+        distanceMatrix = Util
+
+
+        // for (int source = 1; source <= numberofvertices; source++) {
+        //     for (
+        //         int destination = 1;
+        //         destination <= numberofvertices;
+        //         destination++
+        //     ) {
+        //         DistanceMatrix[source][destination] =
+        //             AdjacencyMatrix[source][destination];
+        //     }
+        // }
+    }
+
+    public static int[][] applyFloydWarshall(int distanceMatrix[][])
+    {
+
+
+
+        return distanceMatrix;
+    }
+
+//!======================================================================================
+
+    public void encontraCaminhosMinimos() 
+    {
+        for(Vertex v3: vertices.values()) 
+        { // vertice intermediario no caminho de v1 ate v2
+            ArrayList<Coord> visited = new ArrayList<Coord>(); //armazena os pares ja encontrados
+
+            for(Vertex v1: vertices.values()) 
+            { // vertice inicial do caminho atual
+                for(Vertex v2: vertices.values()) 
+                { // vertice final do caminho atual
+                    Coord c1 = new Coord(v1.id, v2.id); //coordenadas do caminho atual
+                    Coord c2 = new Coord(v1.id, v3.id); //primeira parte do novo caminho sendo comparado
+                    Coord c3 = new Coord(v3.id, v2.id); //segunda parte do novo caminho sendo comparado
+                    Coord oposta = new Coord(v2.id, v1.id); //coordenada do caminho atual no sentido oposto
+
+                    /* Se um caminho menor e encontrado, atualiza o comprimento do caminho minimo para o par (v1, v2) nos 
+                    dois sentidos, atualiza o caminho como 'unico', e impede que o caminho no sentido contrario seja calculado. */
+                    if(v1.id != v2.id && v1.id != v3.id && v2.id != v3.id && 
+                        distancia.get(c1) > distancia.get(c2) + distancia.get(c3)) 
+                    {
+                        distancia.put(c1, distancia.get(c2) + distancia.get(c3));
+                        distancia.put(oposta, distancia.get(c1));
+                        distanciaMinimaUnica.put(c1, true);
+                        distanciaMinimaUnica.put(oposta, true);
+                        if(!visited.contains(oposta)) 
+                            visited.add(oposta);
+                    }
+                    /* Se um caminho com comprimento igual existir, atualiza o caminho para nao ser considerado unico. */
+                    else if(v1.id != v2.id && v1.id != v3.id && v2.id != v3.id && 
+                        distancia.get(c1) == distancia.get(c2) + distancia.get(c3) 
+                        && !visited.contains(c1)) 
+                    {
+                        distanciaMinimaUnica.put(c1, false);
+                        distanciaMinimaUnica.put(oposta, false);
+                    }
+                }
+            }
+        }
+    }
 
     private HashMap< Path, Integer > pathsLengths; // WRITE ITS USES? PUT IT CLOSER TO WHERE ITS USED?
 
     /* Mapa cuja coordenada (i,j) diz se o caminho minimo do vertice 'i' ao vertice 'j' é unico. Se sim, o valor correspondente e 'true'. */
     private HashMap< Path, Boolean > isPathMinimumLengthUnique; // BAD NAME. SHOULDN'T THIS BE THE RESPONSIBILITY OF A FUNCTION OR SMTH ELSE?
+
+    private FloydWarshall(){}
 
     /* Cada elemento do mapa 'distancia 'é inicializado para o maior valor possivel.
     O valor nao pode ser Integer.MAX_VALUE pois as contas realisada poderiam resultar em overflow, 
@@ -25,6 +109,10 @@ public class FloydWarshall
                     distancia.put( c, (int)(Integer.MAX_VALUE/2) );
             }
         }
+    }
+
+    public void setIsPathMinimumLengthUnique(HashMap<Path, Boolean> isPathMinimumLengthUnique) {
+        this.isPathMinimumLengthUnique = isPathMinimumLengthUnique;
     }
 
     /* As coordenadas correspondentes a lacos sao inicializados com 'true', assim como as correspondentes a arestas do grafo:

@@ -10,9 +10,15 @@ import java.util.Arrays;
 import org.apache.commons.lang3.ArrayUtils;
 
 // GRAPH CLASS SHOULD ONLY HAVE GRAPH RELATED DATA AND FUNCTIONS, NOT FLOYD MARSHALL STUFF
+// Assumes the graph description detailed in README.md
 public class Graph 
 {
     private HashMap<Integer, Vertex> vertices = new HashMap<Integer, Vertex>();
+
+    public HashMap<Integer, Vertex> getVertices()
+    {
+        return this.vertices;
+    }
 
     public void addVertex(int id) 
     {
@@ -47,36 +53,22 @@ public class Graph
 
     private void addLineDataToGraph(String lineData[])
     {
-        int vertexID = getVertexID(lineData);
-        int neighborsIDs[] = getNeighborsIDs(lineData);
+        int vertexID = extractVertexID(lineData);
+        int neighborsIDs[] = extractNeighborsIDs(lineData);
         for(int nID: neighborsIDs)
             this.addEdge(vertexID, nID);
     }
 
-    private int getVertexID(String lineData[])
+    private int extractVertexID(String lineData[])
     {
         return Integer.parseInt(lineData[0]);
     }
 
-    private int[] getNeighborsIDs(String lineData[])
+    private int[] extractNeighborsIDs(String lineData[])
     {
-        //String neighborsIDs_str[] = Arrays.stream(lineData).filter(value -> value != lineData[0]).toArray();
         String neighborsIDs_str[] = ArrayUtils.removeElement(lineData, lineData[0]);
-        // for (String string : neighborsIDs_str) {
-        //     System.out.println(string);
-        // }
-        int neighborsIDs[] = toIntArray(neighborsIDs_str);
+        int neighborsIDs[] = Util.toIntArray(neighborsIDs_str);
         return neighborsIDs;
-    }
-
-    private static int[] toIntArray(String strArray[])
-    {
-        int intArray[] = new int[strArray.length];
-        for(int i = 0; i < strArray.length; i++)
-        {
-            intArray[i] = Integer.parseInt(strArray[i]);
-        }
-        return intArray;
     }
 
     public void print()
@@ -93,24 +85,19 @@ public class Graph
         }
     }
 
-    /*
-    // CAN THIS BE SUBSTITUTED BY JUST A CALL TO ADDEDGE?
-    // if graph doesn't contain vertex, add it
-    // adds edges from vertex to all neighbors in array
-    //      if doesn't contain neighbor, add it
-    // can be done with a series of addEdges
-    private void addConections(int vertexID, int neighborsIDs[])
+    // A graph is geodetic if between each two vertices there exists an unique shortest path
+    public boolean isGeodetic()
     {
-        if(!vertices.containsKey(vertexID))
-            this.addVertex(vertexID);
-        for(Integer nID: neighborsIDs)
+        for(Vertex source: vertices.values())
         {
-            if(!vertices.containsKey(nID))
-                this.addVertex(nID);
-            this.addEdge(vertexID, nID);
+            for(Vertex dest: vertices.values())
+            {
+                if(!FloydWarshall.isShortestPathUnique(this, source, dest))
+                    return false;
+            }
         }
+        return true;
     }
-    */
 
     // TODO rewrite -> 'distanciaMinimaUnica' will be changed later
     // ? DOES IT MAKE SENSE TO HAVE THIS METHOD IN THIS CLASS? SHOULDN'T IT BE IN A UTILITY CLASS?
