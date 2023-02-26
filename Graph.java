@@ -5,10 +5,9 @@ TODO: do away with 'isPathMinimumLengthUnique' and do something else to do this 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.io.FileReader;
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.apache.commons.lang3.ArrayUtils;
 
 // GRAPH CLASS SHOULD ONLY HAVE GRAPH RELATED DATA AND FUNCTIONS, NOT FLOYD MARSHALL STUFF
 public class Graph 
@@ -61,19 +60,37 @@ public class Graph
 
     private int[] getNeighborsIDs(String lineData[])
     {
-        String neighborsIDs_str = Arrays.stream(lineData).filter(value -> value != lineData[0]).toArray();
-        int neighborsIDs[] = toIntArray(neighborsData)
+        //String neighborsIDs_str[] = Arrays.stream(lineData).filter(value -> value != lineData[0]).toArray();
+        String neighborsIDs_str[] = ArrayUtils.removeElement(lineData, lineData[0]);
+        // for (String string : neighborsIDs_str) {
+        //     System.out.println(string);
+        // }
+        int neighborsIDs[] = toIntArray(neighborsIDs_str);
         return neighborsIDs;
     }
 
     private static int[] toIntArray(String strArray[])
     {
-        int intArray[] = new Integer[strArray.length];
+        int intArray[] = new int[strArray.length];
         for(int i = 0; i < strArray.length; i++)
         {
             intArray[i] = Integer.parseInt(strArray[i]);
         }
         return intArray;
+    }
+
+    public void print()
+    {
+        System.out.println("PRINTING");
+        for (Vertex v : vertices.values()) 
+        {
+            System.out.println(v.getID());
+            for (Vertex neighbor : v.getNeighbors().values()) 
+            {
+                System.out.println(neighbor.getID());
+            }
+            System.out.println();
+        }
     }
 
     /*
@@ -99,17 +116,17 @@ public class Graph
     // ? DOES IT MAKE SENSE TO HAVE THIS METHOD IN THIS CLASS? SHOULDN'T IT BE IN A UTILITY CLASS?
     /* Caso o mapa 'distanciaMinimaUnica' indique que o caminho minimo entre um par de vertices (i, j) nao e unico, retorna false.
     Caso contrario, retorna true. */
-    public boolean isGeodetic() 
-    {
-        for( Vertex v1: vertices.values() ) 
-        {
-            for( Vertex v2: vertices.values() ) 
-            {
-                Coord c = new Coord(v1.id, v2.id);
-                if( distanciaMinimaUnica.get(c) == false )
-                    return false;
-            }
-        }
-        return true;
-    }
+    // public boolean isGeodetic() 
+    // {
+    //     for( Vertex v1: vertices.values() ) 
+    //     {
+    //         for( Vertex v2: vertices.values() ) 
+    //         {
+    //             Coord c = new Coord(v1.id, v2.id);
+    //             if( distanciaMinimaUnica.get(c) == false )
+    //                 return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 }
