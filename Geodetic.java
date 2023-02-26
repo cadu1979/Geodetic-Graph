@@ -5,8 +5,7 @@ arq_ent -> sourceFile
 */
 
 /*
-TODO
-change g.inicializaMatrizDistanciaMinimaUnica(); to some better name
+TODO change g.inicializaMatrizDistanciaMinimaUnica(); to some better name
 */
 
 //import java.io.FileReader;
@@ -14,6 +13,8 @@ change g.inicializaMatrizDistanciaMinimaUnica(); to some better name
 import java.nio.file.Files;
 import java.util.List;
 //import java.util.Scanner; 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /* Tells if an undirected unweighted graph is geodetic. 
    A graph is geodetic if between each two vertices there exists an unique shortest path. */
@@ -29,16 +30,27 @@ public class Geodetic
         //FileReader file = new FileReader("myfiles/graphDescription.txt");
         //BufferedReader buffReader = new BufferedReader(file);
 
+        List<String> graphDescription;
+
+        Path graphDescriptionPath = Paths.get("grafo01.txt");
+
+        //List < String > lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
+
+        System.out.println(graphDescriptionPath);
+
+        //String graphDescriptionFile;
+        //Paths.get(graphDescriptionFile, "myfiles/graphDescription.txt");
         try
         {
-            List <String> graphDescription = Files.readAllLines("myfiles/graphDescription.txt");
+            graphDescription = Files.readAllLines(graphDescriptionPath);
+            g.buildGraph(graphDescription);
         }
         catch(Exception e) 
         {
 			e.printStackTrace();
 		}
         
-        g.buildGraph(graphDescription);
+        
 
         
 
@@ -58,14 +70,14 @@ public class Geodetic
 
 		//g.open_text(file);
 
-        g.inicializaMatrizDistanciaMinimaUnica(); // DOESN'T FIT
+        //g.inicializaMatrizDistanciaMinimaUnica(); // DOESN'T FIT
 
-        g.Floyd_Warshall();
+        //g.Floyd_Warshall();
 
-        if (g.isGeodetic())
-            System.out.println("The graph is geodetic.");
-        else
-            System.out.println("The graph is not geodetic.");
+        // if (g.isGeodetic())
+        //     System.out.println("The graph is geodetic.");
+        // else
+        //     System.out.println("The graph is not geodetic.");
     }
 }
 
