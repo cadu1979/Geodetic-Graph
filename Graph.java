@@ -1,19 +1,12 @@
-/*
-TODO: do away with 'isPathMinimumLengthUnique' and do something else to do this functionality
-*/
-
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.apache.commons.lang3.ArrayUtils;
 
-// GRAPH CLASS SHOULD ONLY HAVE GRAPH RELATED DATA AND FUNCTIONS, NOT FLOYD MARSHALL STUFF
-// Assumes the graph description detailed in README.md
+// Assumes the graph description detailed in README.md to be able to build the graph
 public class Graph 
 {
     private HashMap<Integer, Vertex> vertices = new HashMap<Integer, Vertex>();
+    private int[][] adjacencyMatrix;
 
     public HashMap<Integer, Vertex> getVertices()
     {
@@ -71,49 +64,49 @@ public class Graph
         return neighborsIDs;
     }
 
-    public void print()
+    public void buildAdjacencyMatrix()
     {
-        System.out.println("PRINTING");
+        int numVertices = this.getVertices().size();
+        adjacencyMatrix = new int[numVertices+1][numVertices+1];
+        Vertex source, dest;
+        for(int sourceID = 0; sourceID < adjacencyMatrix.length; sourceID++)
+        {
+            for(int destID = 0; destID < adjacencyMatrix.length; destID++)
+            {
+                if(getVertices().containsKey(sourceID) && getVertices().containsKey(destID))
+                {
+                    source = this.getVertices().get(sourceID);
+                    dest = this.getVertices().get(destID);
+                    if(source == dest)
+                        adjacencyMatrix[sourceID][destID] = 0;
+                    else if(source.isNeighbor(dest))
+                        adjacencyMatrix[sourceID][destID] = 1;
+                    else
+                        adjacencyMatrix[sourceID][destID] = (int)(Integer.MAX_VALUE/2);
+                }
+            }
+        }
+        printGraphDescription();
+    }
+
+    public int[][] getAdjacencyMatrix()
+    {
+        if(adjacencyMatrix == null)
+            buildAdjacencyMatrix();
+        return this.adjacencyMatrix;
+    }
+
+    public void printGraphDescription()
+    {
         for (Vertex v : vertices.values()) 
         {
-            System.out.println(v.getID());
+            System.out.println("Vertex: " + v.getID());
+            System.out.print("Neighbors: ");
             for (Vertex neighbor : v.getNeighbors().values()) 
             {
-                System.out.println(neighbor.getID());
+                System.out.print(neighbor.getID() + " ");
             }
-            System.out.println();
+            System.out.println("\n");
         }
     }
-
-    // A graph is geodetic if between each two vertices there exists an unique shortest path
-    public boolean isGeodetic()
-    {
-        for(Vertex source: vertices.values())
-        {
-            for(Vertex dest: vertices.values())
-            {
-                if(!FloydWarshall.isShortestPathUnique(this, source, dest))
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    // TODO rewrite -> 'distanciaMinimaUnica' will be changed later
-    // ? DOES IT MAKE SENSE TO HAVE THIS METHOD IN THIS CLASS? SHOULDN'T IT BE IN A UTILITY CLASS?
-    /* Caso o mapa 'distanciaMinimaUnica' indique que o caminho minimo entre um par de vertices (i, j) nao e unico, retorna false.
-    Caso contrario, retorna true. */
-    // public boolean isGeodetic() 
-    // {
-    //     for( Vertex v1: vertices.values() ) 
-    //     {
-    //         for( Vertex v2: vertices.values() ) 
-    //         {
-    //             Coord c = new Coord(v1.id, v2.id);
-    //             if( distanciaMinimaUnica.get(c) == false )
-    //                 return false;
-    //         }
-    //     }
-    //     return true;
-    // }
 }

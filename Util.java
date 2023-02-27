@@ -12,25 +12,27 @@ public class Util
         return intArray;
     }
 
-    public static int[][] buildAdjacencyMatrix(Graph g)
+    public static void printMatrix(int matrix[][])
     {
-        int numVertices = g.getVertices().size();
-        int[][] adjMatrix = new int[numVertices][numVertices];
-        Vertex source, dest;
-        for(int i = 0; i < adjMatrix.length; i++)
+        for(int i = 0; i < matrix.length; i++)
         {
-            for(int j = 0; j < adjMatrix.length; j++)
+            for(int j = 0; j < matrix.length; j++)
             {
-                source = g.getVertices().get(i);
-                dest = g.getVertices().get(j);
-                if(source == dest)
-                    adjMatrix[i][j] = 0;
-                else if(source.isNeighbor(dest))
-                    adjMatrix[i][j] = 1;
-                else
-                    adjMatrix[i][j] = (int)(Integer.MAX_VALUE/2);
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    //? RENAME?
+    public static void setBoolMatrixToTrue(boolean matrix[][])
+    {
+        for(int i = 0; i < matrix.length; i++)
+        {
+            for(int j = 0; j < matrix.length; j++)
+            {
+                matrix[i][j] = true;
             }
         }
-        return adjMatrix;
     }
 }
