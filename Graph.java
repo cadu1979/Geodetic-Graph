@@ -86,7 +86,6 @@ public class Graph
                 }
             }
         }
-        printGraphDescription();
     }
 
     public int[][] getAdjacencyMatrix()

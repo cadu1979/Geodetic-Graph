@@ -1,26 +1,34 @@
 import java.util.Arrays;
 
-// TODO description of the alg
-// TODO modify alg to keep track of uniqueness of paths
-// TODO specify that it is adapted to fit the geodetic problem
-
+/*
+ * The Floyd-Warshall algorithm finds shortest paths between all pairs of vertices in a graph. 
+ * The algorithm was modified to fit the problem of deciding whether or not a graph is geodetic. Now, aside from 
+ * finding the shortest paths, it also keeps track of whether or not it found another path of similar length. 
+ * For this, a 2D array (shortestPathIsUnique), containing information on whether or not the shortest path between a 
+ * pair of vertices is the only path of such length between said vertices, was created. 
+ */
 public class FloydWarshallRunner
 {
     private int[][] shortestDistanceMatrix;
     private boolean[][] shortestPathIsUnique;
 
-    public void setupAlgorithm(int adjMatrix[][])
+    private void setupAlgorithm(int adjMatrix[][])
     {
         shortestDistanceMatrix = Arrays.stream(adjMatrix).map(int[]::clone).toArray(int[][]::new);
+    }
+
+    private void setupGeodetic(Graph g)
+    {
+        int numVertices = g.getVertices().size();
+        shortestPathIsUnique = new boolean[numVertices+1][numVertices+1];
+        Util.setBoolMatrixToTrue(shortestPathIsUnique);
     }
 
     public int[][] runFloydWarshall(Graph g)
     {
         int adjMatrix[][] = g.getAdjacencyMatrix();
-        this.setupAlgorithm(adjMatrix);
-        int numVertices = g.getVertices().size();
-        shortestPathIsUnique = new boolean[numVertices+1][numVertices+1];
-        Util.setBoolMatrixToTrue(shortestPathIsUnique);
+        setupAlgorithm(adjMatrix);
+        setupGeodetic(g);
         for(int intermediateID = 1; intermediateID < shortestDistanceMatrix.length; intermediateID++)
         {
             for(int sourceID = 1; sourceID < shortestDistanceMatrix.length; sourceID++)

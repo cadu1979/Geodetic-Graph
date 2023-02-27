@@ -24,7 +24,6 @@ public class Util
         }
     }
 
-    //? RENAME?
     public static void setBoolMatrixToTrue(boolean matrix[][])
     {
         for(int i = 0; i < matrix.length; i++)
