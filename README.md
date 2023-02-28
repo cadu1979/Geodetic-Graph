@@ -1,7 +1,10 @@
 # Geodetic Graph
 
-Calculates whether or not a graph is geodetic. A graph is geodetic if between each two vertices there exists an unique shortest path.  
+Calculates whether or not a graph is geodetic. A graph is geodetic if between each two vertices there exists an unique shortest path. 
+
 The graph must be entered in a text file following the format given in the next section. 
+
+Prints a string telling whether or not the graph is geodetic. 
 
 ## Correct form of the graph's description
 
