@@ -19,7 +19,7 @@ An example of the correct description for the graph pictured below would be:
 3 2 4  
 4 1 2 3  
 
-![Graph Example](img\graph-example.png)
+![Graph Example](https://github.com/cadu1979/Geodetic-Graph/blob/main/img/graph-example.png?raw=true)
 
 ## PROJECT
 IDEA
