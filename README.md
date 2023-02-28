@@ -14,12 +14,12 @@ Each ID must be separated by a single space.
 
 An example of the correct description for the graph pictured below would be:
 
-1 2 4
-2 1 3 4
-3 2 4
-4 1 2 3
+1 2 4  
+2 1 3 4  
+3 2 4  
+4 1 2 3  
 
-![Graph example](\img\graph-example.png)
+(\img\graph-example.png)
 
 ## PROJECT
 IDEA
