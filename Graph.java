@@ -2,7 +2,6 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 
-// Assumes the graph description detailed in README.md to be able to build the graph
 public class Graph 
 {
     private HashMap<Integer, Vertex> vertices = new HashMap<Integer, Vertex>();
