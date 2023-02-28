@@ -2,7 +2,7 @@
 
 Calculates whether or not a graph is geodetic. A graph is geodetic if between each two vertices there exists an unique shortest path. This implementation utilizes the Floyd-Warshall algorithm to find all the shortest paths and, while doing so, checks if the shortest paths are unique. 
 
-The graph must be entered in a text file following the format given in the next section. 
+The graph must be entered in a text file (graphDescription.txt) following the format given in the next section. 
 
 Prints a string telling whether or not the graph is geodetic. 
 
