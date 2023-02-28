@@ -19,7 +19,7 @@ An example of the correct description for the graph pictured below would be:
 3 2 4  
 4 1 2 3  
 
-(\img\graph-example.png)
+    ![Graph Example](\img\graph-example.png)
 
 ## PROJECT
 IDEA
