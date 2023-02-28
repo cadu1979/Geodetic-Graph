@@ -12,9 +12,14 @@ The description must contain only the IDs of the vertices, which are integers.
 Each line in the description must start with the ID of a vertex and be followed by the IDs of that vertex's neighbors.
 Each ID must be separated by a single space.
 
-An example of the correct description for the graph pictured below:
+An example of the correct description for the graph pictured below would be:
 
-TODO add picture and description
+1 2 4
+2 1 3 4
+3 2 4
+4 1 2 3
+
+![Graph example](\img\graph-example.png)
 
 ## PROJECT
 IDEA
