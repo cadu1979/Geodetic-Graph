@@ -20,3 +20,7 @@ An example of the correct description for the graph pictured below would be:
 4 1 2 3  
 
 ![Graph Example](https://github.com/cadu1979/Geodetic-Graph/blob/main/img/graph-example.png?raw=true)
+
+## About
+
+Written for a class on algorithms for graphs, where the assignment consisted on developing a program that could tell if a graph is geodetic using the Floyd-Warshall algorithm.
